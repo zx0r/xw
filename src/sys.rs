@@ -79,10 +79,10 @@ unsafe extern "C" {
     #[link_name = "open"] fn c_open(p: *const CChar, f: CInt, ...) -> CInt;
     #[link_name = "openat"] fn c_openat(d: CInt, p: *const CChar, f: CInt, ...) -> CInt;
     #[link_name = "close"] fn c_close(fd: CInt) -> CInt;
-    #[link_name = "read"] fn c_read(fd: CInt, b: *mut u8, c: CSize) -> CSsize;
-    #[link_name = "pread"] fn c_pread(fd: CInt, b: *mut u8, c: CSize, o: i64) -> CSsize;
-    #[link_name = "pwrite"] fn c_pwrite(fd: CInt, b: *const u8, c: CSize, o: i64) -> CSsize;
-    #[link_name = "write"] fn c_write(fd: CInt, b: *const u8, c: CSize) -> CSsize;
+    #[link_name = "read"] fn c_read(fd: CInt, b: *mut core::ffi::c_void, c: CSize) -> CSsize;
+    #[link_name = "pread"] fn c_pread(fd: CInt, b: *mut core::ffi::c_void, c: CSize, o: i64) -> CSsize;
+    #[link_name = "pwrite"] fn c_pwrite(fd: CInt, b: *const core::ffi::c_void, c: CSize, o: i64) -> CSsize;
+    #[link_name = "write"] fn c_write(fd: CInt, b: *const core::ffi::c_void, c: CSize) -> CSsize;
     #[link_name = "fstatat"] fn c_fstatat(d: CInt, p: *const CChar, s: *mut StatStub, f: CInt) -> CInt;
     #[link_name = "faccessat"] fn c_faccessat(d: CInt, p: *const CChar, m: CInt, f: CInt) -> CInt;
     #[link_name = "getcwd"] fn c_getcwd(b: *mut CChar, s: CSize) -> *mut CChar;
@@ -136,7 +136,7 @@ impl Fd {
 pub fn read_file<'a>(path: &CStr, buf: &'a mut [u8]) -> Option<&'a [u8]> {
     let fd = Fd::open(path, O_RDONLY)?;
     // SAFETY: fd.0 is open, buf is valid for writing.
-    let n = unsafe { c_read(fd.0, buf.as_mut_ptr(), buf.len()) };
+    let n = unsafe { c_read(fd.0, buf.as_mut_ptr().cast(), buf.len()) };
     (n > 0).then(|| buf.get(..n.cast_unsigned())).flatten()
 }
 
@@ -144,34 +144,34 @@ pub fn read_file<'a>(path: &CStr, buf: &'a mut [u8]) -> Option<&'a [u8]> {
 pub fn readat<'a>(dirfd: &Fd, name: &CStr, buf: &'a mut [u8]) -> Option<&'a [u8]> {
     let fd = dirfd.openat(name, O_RDONLY)?;
     // SAFETY: fd.0 is open, buf is valid for writing.
-    let n = unsafe { c_read(fd.0, buf.as_mut_ptr(), buf.len()) };
+    let n = unsafe { c_read(fd.0, buf.as_mut_ptr().cast(), buf.len()) };
     (n > 0).then(|| buf.get(..n.cast_unsigned())).flatten()
 }
 
 #[rustfmt::skip]
 pub fn pread(fd: &Fd, buf: &mut [u8], offset: i64) -> Option<usize> {
     // SAFETY: fd.0 is open, buf is valid for writing.
-    let n = unsafe { c_pread(fd.0, buf.as_mut_ptr(), buf.len(), offset) };
+    let n = unsafe { c_pread(fd.0, buf.as_mut_ptr().cast(), buf.len(), offset) };
     (n >= 0).then_some(n.cast_unsigned())
 }
 
 #[rustfmt::skip]
 pub fn pwrite(fd: &Fd, buf: &[u8], offset: i64) {
     // SAFETY: fd.0 is open, buf is valid for reading.
-    unsafe { c_pwrite(fd.0, buf.as_ptr(), buf.len(), offset); }
+    unsafe { c_pwrite(fd.0, buf.as_ptr().cast(), buf.len(), offset); }
 }
 
 #[rustfmt::skip]
 pub fn write_stdout(buf: &[u8]) -> bool {
     // SAFETY: fd 1 is stdout, buf is valid for reading.
-    let n = unsafe { c_write(1, buf.as_ptr(), buf.len()) };
+    let n = unsafe { c_write(1, buf.as_ptr().cast(), buf.len()) };
     n == buf.len().cast_signed()
 }
 
 #[rustfmt::skip]
 pub fn write_stderr(buf: &[u8]) {
     // SAFETY: fd 2 is stderr, buf is valid for reading.
-    unsafe { c_write(2, buf.as_ptr(), buf.len()); }
+    unsafe { c_write(2, buf.as_ptr().cast(), buf.len()); }
 }
 
 #[rustfmt::skip]

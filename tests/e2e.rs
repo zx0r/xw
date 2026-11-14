@@ -216,7 +216,7 @@ fn test_lib_render_in_process() {
     };
     let ok = xw::render(&cfg, &mut out);
     assert!(ok);
-    assert!(!out.as_bytes().is_empty());
+    assert_ne!(out.as_bytes(), []);
 }
 
 #[test]
