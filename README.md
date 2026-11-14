@@ -32,34 +32,46 @@ cd xw && just release
 
 ---
 
-### Integration
+### Tmux Integration
 
-```bash
-# TOP Bar pane-border-format
+Add to your `tmux.conf` or `theme.conf`:
+
+```tmux
+# TOP Bar pane-border-format (Git telemetry with auto-detection of pane path)
 set -gF @mod_git "xw git"
+set -gw pane-border-format '#[align=left] #(#{E:@mod_git} "#{pane_current_path}")'
 
-# Bottom Bar
+# Status Bar (Hardware telemetry: CPU, RAM, Disk, Uptime)
 set -gF @mod_hw "xw cpu mem ssd uptime"
-set -g @mod_right "#(#{E:@mod_hw}) #{E:@zoom}"
+set -g status-right "#(#{E:@mod_hw})"
 ```
 
 ---
 
-### [ l i n e x ]
-
-<p align="center">
-  <img src="./assets/gif/xstory-crab.gif" width="360" height="" alt="xstory" />
-</p>
+### CLI Usage
 
 ```shell
-xw [WIDGET] [OPTIONS]
+xw [WIDGETS...] [OPTIONS]
 
+# Hardware telemetry
+xw cpu mem ssd uptime
+
+# Git status for current or target directory
+xw git
+xw git /path/to/repo
+
+# Output styles
+xw --style tmux cpu mem    # Native tmux format #[fg=...]
+xw --style ansi cpu mem    # ANSI escape sequences
+xw --style plain cpu mem   # Stripped plain text
+xw --no-icons cpu mem      # Omit nerd-font glyphs
+```
+
+```text
 [✓] zero-allocation stack formatting
 [✓] sub-millisecond telemetry probes
 [✓] native tmux and ANSI dialects
 [✓] zero runtime dependencies
-
-fast telemetry → rendered instantly for tmux and status lines
 ```
 
 ---
