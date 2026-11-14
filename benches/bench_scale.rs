@@ -1,4 +1,4 @@
-//! High-density architectural benchmark for linex widgets and formatting engine.
+//! High-density architectural benchmark for xw widgets and formatting engine.
 
 #![allow(
     clippy::print_stdout,
@@ -31,37 +31,29 @@ fn main() {
     if std::env::args().any(|arg| arg == "--list") {
         return;
     }
-    println!("=== linex architectural benchmark suite ===");
+    println!("=== xw architectural benchmark suite ===");
 
     // 1. Benchmark Out stack buffer operations
     bench("fmt::Out push & itoa", 100_000, || {
-        let mut out = linex::fmt::Out::new();
+        let mut out = xw::fmt::Out::new();
         out.push(b"prefix: ");
-        linex::fmt::u64(&mut out, 123_456);
+        xw::fmt::u64(&mut out, 123_456);
         out.byte(b'%');
         black_box(out.as_bytes());
     });
 
     // 2. Benchmark format dialect styling
     bench("fmt::style (tmux matrix)", 100_000, || {
-        let mut out = linex::fmt::Out::new();
-        linex::fmt::style(
-            &mut out,
-            linex::fmt::Dialect::Tmux,
-            linex::fmt::Color::Green,
-        );
+        let mut out = xw::fmt::Out::new();
+        xw::fmt::style(&mut out, xw::fmt::Dialect::Tmux, xw::fmt::Color::Green);
         out.push(b"test");
-        linex::fmt::style(
-            &mut out,
-            linex::fmt::Dialect::Tmux,
-            linex::fmt::Color::Reset,
-        );
+        xw::fmt::style(&mut out, xw::fmt::Dialect::Tmux, xw::fmt::Color::Reset);
         black_box(out.as_bytes());
     });
 
     // 3. Benchmark CLI argument parsing
     bench("args::parse", 50_000, || {
-        let env = linex::args::Env {
+        let env = xw::args::Env {
             no_color: false,
             state_dir: None,
         };
@@ -71,15 +63,15 @@ fn main() {
             std::ffi::OsString::from("-s"),
             std::ffi::OsString::from("tmux"),
         ];
-        let res = linex::args::parse(&args, &env);
+        let res = xw::args::parse(&args, &env);
         let _ = black_box(res);
     });
 
     // 4. Benchmark widget rendering
     let temp = std::env::temp_dir();
-    let cfg = linex::Config {
-        widgets: linex::Widgets::ALL,
-        dialect: linex::fmt::Dialect::Plain,
+    let cfg = xw::Config {
+        widgets: xw::Widgets::ALL,
+        dialect: xw::fmt::Dialect::Plain,
         icons: false,
         bytes: false,
         git_detail: false,
@@ -88,8 +80,8 @@ fn main() {
         state_dir: Some(temp.as_os_str()),
     };
     bench("render (all widgets)", 5_000, || {
-        let mut out = linex::fmt::Out::new();
-        let _ = linex::render(&cfg, &mut out);
+        let mut out = xw::fmt::Out::new();
+        let _ = xw::render(&cfg, &mut out);
         black_box(out.as_bytes());
     });
 }

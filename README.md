@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://github.com/zx0r/linex/releases">
-    <img src="https://img.shields.io/github/v/release/zx0r/linex?color=4be1ff&label=RELEASE&style=flat-square&logo=github&labelColor=1a1a1a" alt="Release" />
+  <a href="https://github.com/zx0r/xw/releases">
+    <img src="https://img.shields.io/github/v/release/zx0r/xw?color=4be1ff&label=RELEASE&style=flat-square&logo=github&labelColor=1a1a1a" alt="Release" />
   </a>
   <a href="LICENSE-MIT">
     <img src="https://img.shields.io/badge/LICENSE-MIT%2FApache--2.0-9fef00?style=flat-square&logo=opensourceinitiative&logoColor=white&labelColor=1a1a1a" alt="License" />
@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/images/linex.png" alt="linex telemetry in tmux — zero-allocation status widgets" style="border-radius: 8px; max-width: 100%;" />
+  <img src="assets/images/xw.png" alt="xw telemetry in tmux — zero-allocation status widgets" style="border-radius: 8px; max-width: 100%;" />
 </p>
 
 ---
@@ -20,14 +20,14 @@
 
 ```bash
 # Cargo (crates.io)
-cargo install linex
+cargo install xw
 
 # Homebrew (macOS / Linux)
-brew install zx0r/tap/linex
+brew install zx0r/tap/xw
 
 # Build from source (LTO fat, stripped)
-gh repo clone zx0r/linex
-cd linex && just release
+gh repo clone zx0r/xw
+cd xw && just release
 ```
 
 ---
@@ -36,10 +36,10 @@ cd linex && just release
 
 ```bash
 # TOP Bar pane-border-format
-set -gF @mod_git "linex git"
+set -gF @mod_git "xw git"
 
 # Bottom Bar
-set -gF @mod_hw "linex cpu mem ssd uptime"
+set -gF @mod_hw "xw cpu mem ssd uptime"
 set -g @mod_right "#(#{E:@mod_hw}) #{E:@zoom}"
 ```
 
@@ -52,7 +52,7 @@ set -g @mod_right "#(#{E:@mod_hw}) #{E:@zoom}"
 </p>
 
 ```shell
-linex [WIDGET] [OPTIONS]
+xw [WIDGET] [OPTIONS]
 
 [✓] zero-allocation stack formatting
 [✓] sub-millisecond telemetry probes

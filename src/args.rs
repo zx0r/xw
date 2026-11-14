@@ -16,8 +16,8 @@ pub enum Cmd<'a> {
     Version,
 }
 
-pub const HELP: &[u8] = b"linex [WIDGET...] [OPTIONS]\n\nWIDGETS: cpu mem ssd git uptime\nOPTIONS:\n  -s, --style <ansi|tmux|plain>\n  -G, --git-status\n  -b, --bytes\n      --no-icons\n      --no-color\n      --separator <S>\n  -h, --help\n  -V, --version\n";
-pub const VERSION: &[u8] = concat!("linex ", env!("CARGO_PKG_VERSION"), "\n").as_bytes();
+pub const HELP: &[u8] = b"xw [WIDGET...] [OPTIONS]\n\nWIDGETS: cpu mem ssd git uptime\nOPTIONS:\n  -s, --style <ansi|tmux|plain>\n  -G, --git-status\n  -b, --bytes\n      --no-icons\n      --no-color\n      --separator <S>\n  -h, --help\n  -V, --version\n";
+pub const VERSION: &[u8] = concat!("xw ", env!("CARGO_PKG_VERSION"), "\n").as_bytes();
 
 /// Parse CLI arguments.
 ///

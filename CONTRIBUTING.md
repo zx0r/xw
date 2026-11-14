@@ -1,6 +1,6 @@
-# Contributing to linex
+# Contributing to xw
 
-Thank you for considering contributing to **linex**!
+Thank you for considering contributing to **xw**!
 
 ## Guidelines & Principles
 

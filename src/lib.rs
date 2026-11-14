@@ -1,4 +1,4 @@
-//! `linex` — zero-dependency, zero-allocation telemetry widgets (< 90 lines).
+//! `xw` — zero-dependency, zero-allocation telemetry widgets (< 90 lines).
 
 pub mod args;
 pub mod cpu;

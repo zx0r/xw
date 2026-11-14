@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Report a reproducible defect or unexpected behavior in linex.
+about: Report a reproducible defect or unexpected behavior in xw.
 title: "[BUG] "
 labels: ["bug"]
 assignees: ''
@@ -10,18 +10,18 @@ assignees: ''
 <!-- A clear and concise description of the bug. -->
 
 ## Reproduction Steps
-1. Execute command: `linex <args>`
+1. Execute command: `xw <args>`
 2. Observe error: `...`
 
 ## Expected Behavior
-<!-- What you expected linex to do. -->
+<!-- What you expected xw to do. -->
 
 ## Diagnostic Environment
 Please run the following commands and paste the exact output:
 
 ```console
-$ linex --version
-$ linex -s ansi
+$ xw --version
+$ xw -s ansi
 $ uname -a
 $ tmux -V
 ```

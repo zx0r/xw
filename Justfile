@@ -1,11 +1,11 @@
 # Justfile - Systems Engineering Command Orchestrator
-# Architecture: Zero-Dependency Telemetry Widget Engine (linex)
+# Architecture: Zero-Dependency Telemetry Widget Engine (xw)
 
 set dotenv-load := false
 set export := false
 set shell := ["bash", "-euo", "pipefail", "-c"]
 
-bin := "linex"
+bin := "xw"
 target_dir := "target"
 
 default: qa

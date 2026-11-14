@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: Propose a functional enhancement or architectural feature for linex.
+about: Propose a functional enhancement or architectural feature for xw.
 title: "[FEATURE] "
 labels: ["enhancement"]
 assignees: ''
@@ -12,7 +12,7 @@ assignees: ''
 ## Proposed Solution & CLI UX
 <!-- Describe how the CLI syntax, widget, or output behavior should look. -->
 ```console
-$ linex ...
+$ xw ...
 ```
 
 ## Architectural Considerations

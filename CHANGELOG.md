@@ -9,7 +9,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Native uptime telemetry widget (`linex uptime`) with zero-allocation human-readable formatting (`days`, `h`, `m`).
+- Native uptime telemetry widget (`xw uptime`) with zero-allocation human-readable formatting (`days`, `h`, `m`).
 - Full porcelain v2 Git status telemetry with Catppuccin 256-color palette without color collisions.
 - Symmetrical architecture for standalone widget rendering (`cpu`, `mem`, `ssd`, `uptime`, `git`).
 
@@ -23,10 +23,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Initial release of **linex**: zero-dependency, zero-allocation telemetry engine for tmux and
+- Initial release of **xw**: zero-dependency, zero-allocation telemetry engine for tmux and
   status lines.
 - Hardware and VCS probes: CPU, memory, SSD, and Git porcelain v2 with SWR caching.
 - Native tmux formatting dialect by default, with ANSI 256-color and plain text support.
 
-[0.1.2]: https://github.com/zx0r/linex/releases/tag/v0.1.2
-[0.1.1]: https://github.com/zx0r/linex/releases/tag/v0.1.1
+[0.1.2]: https://github.com/zx0r/xw/releases/tag/v0.1.2
+[0.1.1]: https://github.com/zx0r/xw/releases/tag/v0.1.1
