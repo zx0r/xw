@@ -76,7 +76,6 @@ panic = "unwind"
 
 [profile.test]
 inherits = "dev"
-opt-level = 1
 debug = 1
 overflow-checks = true
 split-debuginfo = "unpacked"
