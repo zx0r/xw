@@ -22,6 +22,21 @@ fmt:
 fmt-check:
     cargo fmt --all -- --check
 
+# Strict lint gate: pedantic + nursery, warnings are errors (Cargo.toml [lints] + -D warnings)
+lint *args:
+    cargo clippy --locked --all-targets --all-features {{ args }} -- -D warnings
+
+# Compact one-line-per-diagnostic lint output (file:line:col) for fast triage
+lint-short:
+    cargo clippy --locked --lib --bins --all-features --message-format=short -- -D warnings 2>&1 | grep -E "^(src|benches|tests)" || true
+
+# Apply compiler and clippy machine-applicable fixes in a dirty tree, re-format, and show blast radius
+fix:
+    cargo fix --allow-dirty --allow-staged --all-targets --all-features
+    cargo clippy --fix --allow-dirty --allow-staged --all-targets --all-features
+    cargo fmt --all
+    git diff --stat -- src benches tests
+
 # Run complete verification suite (style check + pedantic/nursery lints)
 qa: fmt-check
     cargo clippy --all-targets --all-features -- -D warnings
